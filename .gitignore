@@ -1,0 +1,27 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+
+# Django stuff
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# Environment & secrets
+.env
+.env.*        # .env.dev, .env.prod, etc
+*.env
+
+# IDE / tooling
+.vscode/
+.idea/
+*.code-workspace
+
+# Node (if you have front-end assets)
+node_modules/
