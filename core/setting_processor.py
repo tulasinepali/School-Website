@@ -13,6 +13,12 @@ def site_settings(request):
 
 
 # staff/context_processors.py
-def staff_members(request):
-    return {'staff_members': StaffMember.objects.filter(is_active=True).order_by('order')}
+# core/setting_processor.py
 
+def staff_members(request):
+    """Add all staff members to templates as `staff_members`."""
+    try:
+        members = StaffMember.objects.filter(is_active=True).order_by("order")
+    except Exception:
+        members = []
+    return {'staff_members': members}
