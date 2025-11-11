@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>We'll be back soon | {{ site_settings.site_title|default:"Site" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root { --brand: {{ site_settings.theme_primary_color|default:"#0d6efd" }}; }
+    body { background:#f5f7fa; font-family: "Rubik", system-ui, sans-serif; color:#333; margin:0; }
+    .wrap { min-height:100svh; display:grid; place-items:center; padding:32px; }
+    .card { max-width:680px; width:100%; background:#fff; border-radius:16px; padding:40px; box-shadow:0 10px 30px rgba(0,0,0,.06); text-align:center; }
+    img.logo { max-width:120px; margin-bottom:16px; }
+    h1 { margin:0 0 8px; font-size: clamp(1.4rem, 1rem + 2vw, 2.2rem); }
+    p.muted { color:#666; margin:6px 0 18px; }
+    .countdown { display:flex; justify-content:center; gap:12px; margin:22px 0; }
+    .box { background:#f1f3f5; border-radius:10px; padding:12px 10px; min-width:74px; }
+    .num { font-size:1.4rem; font-weight:700; color:var(--brand); }
+    .lbl { font-size:.8rem; color:#666; }
+    .links a { margin:0 8px; color:var(--brand); text-decoration:none; font-weight:600; }
+    .footer { margin-top:28px; font-size:.9rem; color:#888; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      {% if site_settings.logo_light %}
+        <img class="logo" src="{{ site_settings.logo_light.url }}" alt="Logo">
+      {% endif %}
+
+      <h1>We'll be back soon!</h1>
+
+      {% if site_settings.maintenance_message %}
+        <p class="muted">{{ site_settings.maintenance_message }}</p>
+      {% else %}
+        <p class="muted">Our website is undergoing scheduled maintenance. Thanks for your patience.</p>
+      {% endif %}
+
+      {% if maintenance_until %}
+        <div id="timer" class="countdown" aria-label="Maintenance countdown" hidden>
+          <div class="box"><div class="num" id="d">0</div><div class="lbl">Days</div></div>
+          <div class="box"><div class="num" id="h">0</div><div class="lbl">Hours</div></div>
+          <div class="box"><div class="num" id="m">0</div><div class="lbl">Minutes</div></div>
+          <div class="box"><div class="num" id="s">0</div><div class="lbl">Seconds</div></div>
+        </div>
+        <script>
+          (function () {
+            const target = new Date("{{ maintenance_until|date:'c' }}").getTime();
+            const el = document.getElementById('timer');
+            function tick() {
+              const now = Date.now();
+              let diff = Math.max(0, target - now);
+              if (diff <= 0) { el.hidden = true; clearInterval(iv); return; }
+              el.hidden = false;
+              const d = Math.floor(diff / (1000*60*60*24));
+              diff -= d*(1000*60*60*24);
+              const h = Math.floor(diff / (1000*60*60));
+              diff -= h*(1000*60*60);
+              const m = Math.floor(diff / (1000*60));
+              diff -= m*(1000*60);
+              const s = Math.floor(diff / 1000);
+              document.getElementById('d').textContent = d;
+              document.getElementById('h').textContent = h;
+              document.getElementById('m').textContent = m;
+              document.getElementById('s').textContent = s;
+            }
+            const iv = setInterval(tick, 1000); tick();
+          })();
+        </script>
+      {% endif %}
+
+      <div class="links">
+        {% if site_settings.contact_email %}
+          <a href="mailto:{% filter force_escape %}{{ site_settings.contact_email }}{% endfilter %}">Email us</a>
+        {% endif %}
+        {% if site_settings.facebook_url %}<a href="{{ site_settings.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+        {% if site_settings.youtube_url %}<a href="{{ site_settings.youtube_url }}" target="_blank" rel="noopener">YouTube</a>{% endif %}
+        {% if site_settings.instagram_url %}<a href="{{ site_settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+        {% if site_settings.linkedin_url %}<a href="{{ site_settings.linkedin_url }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
+      </div>
+
+      <div class="footer">
+        &copy; {{ site_settings.site_title|default:"Our Website" }}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
