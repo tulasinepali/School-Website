@@ -1,5 +1,6 @@
 from .models import SiteSettings
 from staff.models import StaffMember
+from homepage.models import HomePage
 
 def site_settings(request):
     """
@@ -22,3 +23,4 @@ def staff_members(request):
     except Exception:
         members = []
     return {'staff_members': members}
+
