@@ -3453,3 +3453,22 @@ h6 {
   box-shadow:0 6px 18px rgba(58,134,255,.35);
 }
 .profile-card__btn:focus-visible{ outline:3px solid rgba(58,134,255,.35); outline-offset:2px; }
+
+
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #002347;
+  margin-bottom: 10px;
+}
+
+.section-title p {
+  font-size: 16px;
+  color: #555;
+}

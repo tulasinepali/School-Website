@@ -83,6 +83,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.setting_processor.site_settings',
                 'core.setting_processor.staff_members',
+                "core.context_procesor.global_homepage",
 
             ],
         },

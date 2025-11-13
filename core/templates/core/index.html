@@ -93,33 +93,43 @@
 
         <!--================ Start Leader Area =================-->
     <section class="leaders">
-  <div class="leaders__wrap">
-    <!-- Principal -->
-    <article class="profile-card">
-      <img class="profile-card__avatar" src="principal.jpg" alt="Principal">
-      <h3 class="profile-card__name">Dr. A. Sharma</h3>
-      <p class="profile-card__role">Principal</p>
-      <p class="profile-card__bio">
-        Welcome to our institution where excellence meets opportunity. 
-        We nurture talent and build character for a brighter future.
-      </p>
-      {% comment %} <a href="#" class="profile-card__btn">View Profile</a> {% endcomment %}
-    </article>
 
-    <!-- Chairperson -->
-    <article class="profile-card">
-      <img class="profile-card__avatar" src="chairperson.jpg" alt="Chairperson">
-      <h3 class="profile-card__name">Ms. S. Karki</h3>
-      <p class="profile-card__role">Chairperson</p>
-      <p class="profile-card__bio">
-        Our vision is a dynamic learning community that empowers students
-        to lead with knowledge, integrity, and purpose.
-      </p>
-      {% comment %} <a href="#" class="profile-card__btn">View Profile</a> {% endcomment %}
-    </article>
+  <!-- 🔥 SECTION TITLE -->
+  <div class="section-title">
+    <h2>Leadership Team</h2>
+    <p>Meet the visionary leaders guiding our institution</p>
   </div>
+
+  <div class="leaders__wrap">
+
+    {% for leader in leadership_messages %}
+    <article class="profile-card {% if leader.align == 'right' %}align-right{% endif %}">
+
+      {% if leader.photo %}
+      <img class="profile-card__avatar" src="{{ leader.photo.url }}" alt="{{ leader.name }}">
+      {% endif %}
+
+      <h3 class="profile-card__name">{{ leader.name }}</h3>
+      <p class="profile-card__role">{{ leader.get_role_display }}</p>
+
+      {% if leader.message %}
+      <p class="profile-card__bio">{{ leader.message }}</p>
+      {% endif %}
+
+      {% if leader.profile_link %}
+      <a href="{{ leader.profile_link }}" class="profile-card__btn">View Profile</a>
+      {% endif %}
+
+    </article>
+    {% endfor %}
+
+  </div>
+</section>
+
+
   <br>
 </section>
+
         <!--================ End Leader Area =================-->
 
 
@@ -347,8 +357,7 @@
               <p class="designation">Sr. web designer</p>
               <div class="mb-4">
                 <p>
-                  If you are looking at blank cassettes on the web, you may be
-                  very confused at the.
+                  If you are looking at blank cassettes on the web, you may be very confused at the.
                 </p>
               </div>
               <div class="align-items-center justify-content-center d-flex">

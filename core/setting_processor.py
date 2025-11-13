@@ -24,3 +24,11 @@ def staff_members(request):
         members = []
     return {'staff_members': members}
 
+
+def home_page(request):
+    try:
+        home_page = HomePage.objects.first()
+    except Exception:
+        home_page = None
+    return {'home_page': home_page}
+
